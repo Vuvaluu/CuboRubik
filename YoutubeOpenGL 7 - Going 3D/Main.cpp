@@ -34,15 +34,14 @@ GLfloat vertices[] =
 	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//5
 	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//6
 	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//7
-
 	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//8
 	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//9
 
+	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//10
+	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//11
 
-
-
-	
-
+	0.5f, 0.5,  0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//12
+	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.5f,		//13
 
 };
 
@@ -50,23 +49,24 @@ GLfloat vertices[] =
 GLuint indices[] =
 {
 	//Piso
-	0, 1, 2,
-	0, 2, 3,
+	1, 2, 3,
+	1, 3, 0,
 
 	//Un lado
 	0, 3, 5,
 	0, 5, 4,
 
 	//Otro Lado
-	9, 8, 2,
-	9, 2, 1
+	8, 9, 2,
+	8, 2, 1,
 
+	//Atras
+	2, 10, 11,
+	2, 11, 3,
 
-	
+	//Enfrente
+	0, 7, 6
 
-
-	
-	
 };
 
 
@@ -140,7 +140,7 @@ int main()
 	std::string texPath = "/Resources/YoutubeOpenGL 7 - Going 3D/";
 
 	// Texture
-	Texture brickTex((parentDir + texPath + "Taylor.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture brickTex((parentDir + texPath + "66476.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	brickTex.texUnit(shaderProgram, "tex0", 0);
 
 	// Original code from the tutorial
