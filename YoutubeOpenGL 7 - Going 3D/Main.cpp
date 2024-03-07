@@ -26,22 +26,20 @@ const unsigned int height = 800;
 GLfloat vertices[] =
 { //     COORDINATES     /      COLORS	  /		TexCoord  //
 
-	0.0f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//0
-	0.5f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//1
-	0.5f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//2
-	0.0f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//3
-	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//4
-	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//5
-	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//6
-	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//7
-	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//8
-	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//9
-
-	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//10
-	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,		//11
-
-	0.5f, 0.5,  0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,		//12
-	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.5f,		//13
+	0.0f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 0.33f,	//0
+	0.5f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	0.50f, 0.33f,	//1
+	0.5f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	0.50f, 0.66f,	//2
+	0.0f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	0.25f, 0.66f,	//3
+	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.33f,	//4
+	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.66f,	//5
+	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 0.0f,	//6
+	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.70f, 0.0f,	//7
+	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.75f, 0.33f,	//8
+	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.75f, 0.66f,	//9
+	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.50f, 1.0f,	//10
+	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.25f, 1.0f,	//11
+	0.5f, 0.5,  0.0f,	0.83f, 0.70f, 0.44f,	1.0f, 0.33f,	//12
+	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	1.0f, 0.66f,	//13
 
 };
 
@@ -52,7 +50,7 @@ GLuint indices[] =
 	1, 2, 3,
 	1, 3, 0,
 
-	//Un lado
+	////Un lado
 	0, 3, 5,
 	0, 5, 4,
 
@@ -65,7 +63,10 @@ GLuint indices[] =
 	2, 11, 3,
 
 	//Enfrente
-	0, 7, 6
+	7, 1, 0,
+	7, 0, 6
+	
+
 
 };
 
@@ -140,7 +141,7 @@ int main()
 	std::string texPath = "/Resources/YoutubeOpenGL 7 - Going 3D/";
 
 	// Texture
-	Texture brickTex((parentDir + texPath + "66476.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture brickTex((parentDir + texPath + "cubo.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	brickTex.texUnit(shaderProgram, "tex0", 0);
 
 	// Original code from the tutorial
@@ -179,7 +180,7 @@ int main()
 
 		// Assigns different transformations to each matrix
 		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		view = glm::translate(view, glm::vec3(0.0f, -1.0f, -2.0f));
 		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
 
 		// Outputs the matrices into the Vertex Shader
