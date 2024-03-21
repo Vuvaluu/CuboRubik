@@ -21,61 +21,90 @@ namespace fs = std::filesystem;
 const unsigned int width = 800;
 const unsigned int height = 800;
 
+float cubeSpacing = 0.1f;
+float cubeSize = 1.0f;
 
-// Vertices coordinates
+// Coordenadas de los cubos en la cuadrícula
+	glm::vec3 rowTop[] = {
+	glm::vec3(-(cubeSize + cubeSpacing),  cubeSize + cubeSpacing, 0.0f),
+	glm::vec3(0.0f,  cubeSize + cubeSpacing, 0.0f),
+	glm::vec3(cubeSize + cubeSpacing,  cubeSize + cubeSpacing, 0.0f)
+};
+
+	glm::vec3 rowMiddle[] = {
+	glm::vec3(-(cubeSize + cubeSpacing), 0.0f, 0.0f),
+	glm::vec3(0.0f, 0.0f, 0.0f),
+	glm::vec3(cubeSize + cubeSpacing, 0.0f, 0.0f)
+};
+
+	glm::vec3 rowBottom[] = {
+	glm::vec3(-(cubeSize + cubeSpacing), -(cubeSize + cubeSpacing), 0.0f),
+	glm::vec3(0.0f, -(cubeSize + cubeSpacing), 0.0f),
+	glm::vec3(cubeSize + cubeSpacing, -(cubeSize + cubeSpacing), 0.0f)
+};
+
+
+//Vertices coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /      COLORS	  /		TexCoord  //
 
-	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.66f,	//0
-	0.0f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 0.66f,	//1
-	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.0f, 0.33f,	//2
-	0.5f, 0.0f, 0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 0.33f,	//3
-	0.0f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	0.5f, 0.66f,	//4
-	0.5f, 0.0f, 0.5f,	0.83f, 0.70f, 0.44f,	0.5f, 0.33f,	//5
-	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.75f, 0.66f,	//6
-	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.75f, 0.33f,	//7
-	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	1.0f, 0.66f,	//8
-	0.5f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	1.0f, 0.33f,	//9
-	0.0f, 0.5f, 0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 1.0f,	//10
-	0.0f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.5f, 1.0f,		//11
-	0.5f, 0.5f,  0.0f,	0.83f, 0.70f, 0.44f,	0.25f, 0.0f,	//12
-	0.5f, 0.5f, 0.5f,	0.83f, 0.70f, 0.44f,	0.5f, 0.0f,		//13
+	-0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//0
+	 0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 0.0f,	//1
+	 0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f,	//2
+	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 1.0f,	//3
 
+	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f,	//4
+	 0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//5
+	 0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//6
+	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//7
+
+	-0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//8
+	 0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//9
+	 0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 1.0f,	//10
+	-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//11
+
+	-0.5f, -0.5f, -0.5f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,	//12
+	 0.5f, -0.5f, -0.5f,	1.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//13
+	 0.5f, -0.5f,  0.5f,	1.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//14
+	-0.5f, -0.5f,  0.5f,	1.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//15
+
+	 0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 1.0f,	0.0f, 0.0f,	//16
+	 0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 1.0f,	1.0f, 0.0f,	//17
+	 0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 1.0f,	1.0f, 1.0f,	//18
+	 0.5f, -0.5f,  0.5f,	0.0f, 1.0f, 1.0f,	0.0f, 1.0f,	//19
+
+	-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//20
+	-0.5f,  0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//21
+	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 1.0f,	//22
+	-0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//23
 };
 
-// Indices for vertices order
+//Indices for vertices order
 GLuint indices[] =
 {
-	//Piso
-	0, 2, 1,
-	1, 2, 3,
-
-	//Un lado
-	4, 5, 6, 
-	5, 7, 6,
-
-	//Otro Lado
-	6, 7, 8,
-	7, 9, 8,
-
-	//Atras
-	1, 3, 4,
-	3, 5, 4,
-
-	//Enfrente
-	1, 11, 10,
-	1, 4, 11,
-
-	//Arriba
-	3, 12, 5, 
-	5, 12, 13
 	
-	/*13,9,8,
-	12,8,9,*/
-	
+   0, 1, 2,
+   2, 3, 0,
+
+   4, 5, 6,
+   6, 7, 4,
+  
+   8, 9, 10,
+   10, 11, 8,
+
+   12, 13, 14,
+   14, 15, 12,
 
 
+   16, 17, 18,
+   18, 19, 16,
+
+   20, 21, 22,
+   22, 23, 20
 };
+
+
+ 
 
 
 
@@ -95,12 +124,12 @@ int main()
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
 	GLFWwindow* window = glfwCreateWindow(width, height, "YoutubeOpenGL", NULL, NULL);
 	// Error check if the window fails to create
-	if (window == NULL)
-	{
+	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
+
 	// Introduce the window into the current context
 	glfwMakeContextCurrent(window);
 
@@ -111,13 +140,12 @@ int main()
 	glViewport(0, 0, width, height);
 
 
-
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
 
-
-	// Generates Vertex Array Object and binds it
+	//Generates Vertex Array Object and binds it
+   //Cubo 1
 	VAO VAO1;
 	VAO1.Bind();
 
@@ -134,6 +162,8 @@ int main()
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
+
+
 
 	// Gets ID of uniform called "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
@@ -181,13 +211,14 @@ int main()
 		}
 
 		// Initializes matrices so they are not the null matrix
+
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 proj = glm::mat4(1.0f);
 
 		// Assigns different transformations to each matrix
 		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, -1.0f, -2.0f));
+		view = glm::translate(view, glm::vec3(0.0f, -3.0f, -15.0f));
 		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
 
 		// Outputs the matrices into the Vertex Shader
@@ -197,6 +228,51 @@ int main()
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+
+		//Bucle
+		for (int j = 0; j < 3; ++j) {
+			// Renderiza la fila superior
+			for (int i = 0; i < 3; ++i) {
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::translate(model, rowTop[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
+
+				// Asigna la matriz de modelo
+				int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+				// Dibuja el cubo
+				VAO1.Bind();
+				glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+			}
+
+			// Renderiza la fila del medio
+			for (int i = 0; i < 3; ++i) {
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::translate(model, rowMiddle[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
+
+				// Asigna la matriz de modelo
+				int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+				// Dibuja el cubo
+				VAO1.Bind();
+				glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+			}
+
+			// Renderiza la fila inferior
+			for (int i = 0; i < 3; ++i) {
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::translate(model, rowBottom[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
+
+				// Asigna la matriz de modelo
+				int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+				// Dibuja el cubo
+				VAO1.Bind();
+				glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+			}
+		}
 
 		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
 		glUniform1f(uniID, 0.5f);
@@ -211,6 +287,8 @@ int main()
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
+
+
 
 
 
