@@ -24,7 +24,7 @@ const unsigned int height = 800;
 float cubeSpacing = 0.1f;
 float cubeSize = 1.0f;
 
-// Coordenadas de los cubos en la cuadrícula
+// Coordenadas de los triangulos en la cuadrícula
 	glm::vec3 rowTop[] = {
 	glm::vec3(-(cubeSize + cubeSpacing),  cubeSize + cubeSpacing, 0.0f),
 	glm::vec3(0.0f,  cubeSize + cubeSpacing, 0.0f),
@@ -43,70 +43,26 @@ float cubeSize = 1.0f;
 	glm::vec3(cubeSize + cubeSpacing, -(cubeSize + cubeSpacing), 0.0f)
 };
 
+	// Vertices coordinates
+	GLfloat vertices[] =
+	{ //     COORDINATES     /        COLORS      /   TexCoord  //
+		-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+		-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+		 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+		 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+		 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0f
+	};
 
-//Vertices coordinates
-GLfloat vertices[] =
-{ //     COORDINATES     /      COLORS	  /		TexCoord  //
-
-	-0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//0
-	 0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 0.0f,	//1
-	 0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f,	//2
-	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 1.0f,	//3
-
-	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f,	//4
-	 0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//5
-	 0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//6
-	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//7
-
-	-0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//8
-	 0.5f,  0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//9
-	 0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 1.0f,	//10
-	-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//11
-
-	-0.5f, -0.5f, -0.5f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,	//12
-	 0.5f, -0.5f, -0.5f,	1.0f, 1.0f, 0.0f,	1.0f, 0.0f,	//13
-	 0.5f, -0.5f,  0.5f,	1.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//14
-	-0.5f, -0.5f,  0.5f,	1.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//15
-
-	 0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 1.0f,	0.0f, 0.0f,	//16
-	 0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 1.0f,	1.0f, 0.0f,	//17
-	 0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 1.0f,	1.0f, 1.0f,	//18
-	 0.5f, -0.5f,  0.5f,	0.0f, 1.0f, 1.0f,	0.0f, 1.0f,	//19
-
-	-0.5f, -0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//20
-	-0.5f,  0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//21
-	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 1.0f,	//22
-	-0.5f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//23
-};
-
-//Indices for vertices order
-GLuint indices[] =
-{
-	
-   0, 1, 2,
-   2, 3, 0,
-
-   4, 5, 6,
-   6, 7, 4,
-  
-   8, 9, 10,
-   10, 11, 8,
-
-   12, 13, 14,
-   14, 15, 12,
-
-
-   16, 17, 18,
-   18, 19, 16,
-
-   20, 21, 22,
-   22, 23, 20
-};
-
-
- 
-
-
+	// Indices for vertices order
+	GLuint indices[] =
+	{
+		0, 1, 2,
+		0, 2, 3,
+		0, 1, 4,
+		1, 2, 4,
+		2, 3, 4,
+		3, 0, 4
+	};
 
 int main()
 {
@@ -122,7 +78,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(width, height, "YoutubeOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(width, height, "hola", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -178,7 +134,7 @@ int main()
 	std::string texPath = "/Resources/YoutubeOpenGL 7 - Going 3D/";
 
 	// Texture
-	Texture brickTex((parentDir + texPath + "cubo.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture brickTex((parentDir + texPath + "66476.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	brickTex.texUnit(shaderProgram, "tex0", 0);
 
 	// Original code from the tutorial
