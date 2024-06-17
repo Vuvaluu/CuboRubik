@@ -159,10 +159,10 @@ int main()
 		shaderProgram.Activate();
 
 		// Simple timer
-		double crntTime = glfwGetTime();
+		float crntTime = glfwGetTime();
 		if (crntTime - prevTime >= 1 / 60)
 		{
-			rotation += 0.5f;
+			rotation += 0.02f;
 			prevTime = crntTime;
 		}
 
@@ -173,9 +173,12 @@ int main()
 		glm::mat4 proj = glm::mat4(1.0f);
 
 		// Assigns different transformations to each matrix
+		
 		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, -3.0f, -15.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f));
 		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+
+		printf("%f \n" ,rotation);
 
 		// Outputs the matrices into the Vertex Shader
 		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
@@ -190,6 +193,7 @@ int main()
 			// Renderiza la fila superior
 			for (int i = 0; i < 3; ++i) {
 				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::translate(model, rowTop[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
 
 				// Asigna la matriz de modelo
@@ -204,6 +208,7 @@ int main()
 			// Renderiza la fila del medio
 			for (int i = 0; i < 3; ++i) {
 				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::translate(model, rowMiddle[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
 
 				// Asigna la matriz de modelo
@@ -218,6 +223,7 @@ int main()
 			// Renderiza la fila inferior
 			for (int i = 0; i < 3; ++i) {
 				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::translate(model, rowBottom[i] + glm::vec3(0.0f, 0.0f, j * (cubeSize + cubeSpacing)));
 
 				// Asigna la matriz de modelo
